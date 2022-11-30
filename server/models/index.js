@@ -5,6 +5,9 @@ const gameSchema = require('./schemas/gameSchema');
 const orderSchema = require('./schemas/orderSchema');
 const discountSchema = require('./schemas/discountSchema');
 const schemaWithName = require('./schemas/schemaWithName');
+const questionSchema = require('./schemas/questionSchema');
+const commentSchema = require('./schemas/commentSchema');
+const reviewSchema = require('./schemas/reviewSchema');
 
 module.exports = {
     User: model('User', userSchema),
@@ -14,4 +17,7 @@ module.exports = {
     Category: model('Category', schemaWithName),
     Genre: model('Genre', schemaWithName),
     Tag: model('Tag', schemaWithName),
+    Question: model('Question', questionSchema),
+    Answer: model('Answer', commentSchema),
+    Review: model('Review', reviewSchema),
 }
