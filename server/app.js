@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const errorHandler = require('./middlewares/errorHandler');
+
+const categoryController = require('./controllers/categoryController');
+
 const PORT = process.env.PORT || 5000;
 const DB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/gamestore';
 
@@ -15,6 +18,7 @@ const app = express();
 
 app.use(express.json());
 
+app.use('/categories', categoryController);
 
 app.use(errorHandler);
 
