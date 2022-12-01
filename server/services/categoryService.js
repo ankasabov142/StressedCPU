@@ -19,7 +19,7 @@ async function updateCategory(id, { name }) {
     validateCategoryName(name);
 
     try {
-        const c = await Category.findById(id, { name });
+        const c = await Category.findById(id);
         return await c.updateOne({ name });
     } catch (err) {
         err.status = 404;
@@ -29,7 +29,6 @@ async function updateCategory(id, { name }) {
 
 async function deleteCategory(id) {
     try {
-        const cat = await Category.deleteOne({ _id: id });
         const c = await Category.findById(id);
         return await c.deleteOne();
     } catch (err) {
