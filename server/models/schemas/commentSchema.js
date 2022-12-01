@@ -13,7 +13,8 @@ const schema = new Schema({
     },
     content: {
         type: String,
-        required: true
+        required: true,
+        maxLength: 2500
     },
     media: [String]
 }, { timestamps: true });

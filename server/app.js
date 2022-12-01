@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const errorHandler = require('./middlewares/errorHandler');
 const PORT = process.env.PORT || 5000;
 const DB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/gamestore';
 
@@ -12,8 +13,9 @@ mongoose.connection.once('connection', () => console.log('Database connected'))
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('IT\'S ALIVE!!!')
-})
+app.use(express.json());
+
+
+app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
