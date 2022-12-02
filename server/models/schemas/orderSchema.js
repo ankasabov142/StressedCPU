@@ -1,5 +1,5 @@
 const { Schema, Types } = require('mongoose');
-const { nonEmptyArray } = require('../../util/validators');
+const { nonEmptyArray } = require('../../util/modelValidators');
 
 const gameSchema = require('./gameSchema');
 const discountSchema = require('./discountSchema.js');
@@ -13,8 +13,8 @@ const schema = new Schema({
         type: [gameSchema],
         validate: nonEmptyArray
     },
-    price: { type: Number, required: true },
+    price: { type: Number, required: true, min: 0 },
     discount: discountSchema
-});
+}, { timestamps: true });
 
 module.exports = schema;

@@ -25,7 +25,7 @@ const schema = new Schema({
         required: true,
         match: passwordRegExp,
     },
-    phoneNumber: String,
+    phoneNumber: { type: String, maxLength: 15 },
     favourites: [{ type: Types.ObjectId, ref: 'Game' }]
 });
 

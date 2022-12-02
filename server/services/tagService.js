@@ -1,5 +1,5 @@
 const { Tag } = require('../models');
-const errorMessages = require('../util/errorMessages');
+const validate = require('../util/validators');
 
 async function getAllTags() {
     return await Tag.find().lean();
@@ -38,19 +38,8 @@ async function deleteTag(id) {
 }
 
 function validateTagName(name) {
-    let err;
-
-    if (!name) {
-        err = new Error(errorMessages.required("Tag name"));
-    }
-    else if (name.length > 50) {
-        err = new Error(errorMessages.maxLength("Tag name", 50));
-    }
-
-    if (err) {
-        err.status = 409;
-        throw err;
-    }
+    validate.required(name, { name: 'Tag name' });
+    validate.maxLength(name, 50, { name: 'Tag name' });
 }
 
 module.exports = {

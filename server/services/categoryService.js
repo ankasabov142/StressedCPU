@@ -1,5 +1,5 @@
 const { Category } = require('../models');
-const errorMessages = require('../util/errorMessages');
+const validate = require('../util/validators');
 
 async function getAllCategories() {
     return await Category.find().lean();
@@ -38,19 +38,8 @@ async function deleteCategory(id) {
 }
 
 function validateCategoryName(name) {
-    let err;
-
-    if (!name) {
-        err = new Error(errorMessages.required("Category name"));
-    }
-    else if (name.length > 50) {
-        err = new Error(errorMessages.maxLength("Category name", 50));
-    }
-
-    if (err) {
-        err.status = 409;
-        throw err;
-    }
+    validate.required(name, { name: 'Genre name' });
+    validate.maxLength(name, 50, { name: 'Genre name' });
 }
 
 module.exports = {

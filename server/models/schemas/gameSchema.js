@@ -1,9 +1,18 @@
 const { Schema, Types } = require('mongoose');
-const { nonEmptyArray } = require('../../util/validators');
+const { nonEmptyArray } = require('../../util/modelValidators');
 
 const schema = new Schema({
-    name: { type: String, required: true, unique: true },
-    description: { type: String, required: true },
+    name: {
+        type: String,
+        required: true,
+        unique: true,
+        maxLength: 250
+    },
+    description: {
+        type: String,
+        required: true,
+        maxLength: 2500
+    },
     displayImage: String,
     media: [String],
     categories: {
