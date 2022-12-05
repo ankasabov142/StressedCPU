@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const errorHandler = require('./middlewares/errorHandler');
 
 const useControllers = require('./controllers');
+const cors = require('./middlewares/cors');
 
 const PORT = process.env.PORT || 5000;
 const DB_URL = process.env.MONGODB_URL || 'mongodb://localhost:27017/gamestore';
@@ -18,6 +19,7 @@ mongoose.connection.once('connection', () => console.log('Database connected'))
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 useControllers(app);
