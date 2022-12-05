@@ -19,8 +19,7 @@ async function updateGenre(id, { name }) {
     validateGenreName(name);
 
     try {
-        const g = await Genre.findById(id);
-        return await g.updateOne({ name });
+        return await Genre.updateOne({ _id: id }, { name });
     } catch (err) {
         err.status = 404;
         throw err;
@@ -29,8 +28,7 @@ async function updateGenre(id, { name }) {
 
 async function deleteGenre(id) {
     try {
-        const g = await Genre.findById(id);
-        return await g.deleteOne();
+        return await Genre.deleteOne({ _id: id });
     } catch (err) {
         err.status = 404;
         throw err;

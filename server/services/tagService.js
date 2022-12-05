@@ -19,8 +19,7 @@ async function updateTag(id, { name }) {
     validateTagName(name);
 
     try {
-        const t = await Tag.findById(id);
-        return await t.updateOne({ name });
+        return await Tag.updateOne({ _id: id }, { name });
     } catch (err) {
         err.status = 404;
         throw err;
@@ -29,8 +28,7 @@ async function updateTag(id, { name }) {
 
 async function deleteTag(id) {
     try {
-        const t = await Tag.findById(id);
-        return await t.deleteOne();
+        return await Tag.deleteOne({_id: id});
     } catch (err) {
         err.status = 404;
         throw err;
