@@ -8,13 +8,13 @@ module.exports = (err, req, res, next) => {
 
     if (err.code == 11000) {
         const [key, value] = Object.entries(err.keyValue)[0];
-        message = errorMessages.unique(`${err.caller} with ${key}`, value);
+        message = errorMessages.unique(`${err.customCaller || err.caller} with ${key}`, value);
         status = 409;
+    } else if (err.status == 404) {
+        message = errorMessages.notFound(err.customCaller || err.caller);
+    } else if (err.name === 'ValidationError') {
+        message = "Invalid data provided";
+        status = 400;
     }
-
-    if (err.status == 404) {
-        message = errorMessages.notFound(err.caller);
-    }
-
     res.status(status).json({ message });
 }
