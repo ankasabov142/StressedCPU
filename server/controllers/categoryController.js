@@ -1,5 +1,7 @@
 const router = require('express').Router();
 
+const { isAdmin } = require('../middlewares/guards');
+
 const service = require('../services/categoryService');
 
 router.get('/', async (req, res, next) => {
@@ -10,7 +12,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', isAdmin(), async (req, res, next) => {
     try {
         await service.postCategory(req.body);
         res.json(await service.getAllCategories());
@@ -19,7 +21,7 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', isAdmin(), async (req, res, next) => {
     try {
         await service.updateCategory(req.params.id, req.body);
         res.json(await service.getAllCategories());
@@ -28,7 +30,7 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdmin(), async (req, res, next) => {
     try {
         await service.deleteCategory(req.params.id);
         res.json(await service.getAllCategories());
