@@ -6,15 +6,12 @@ const { trimObjectValues } = require("../util/functions");
 
 async function populateGameQuery(query) {
     return await query
-        .populate('categories')
-        .populate('genres')
-        .populate('tags')
-        .populate('discounts')
+        .populate('categories genres tags discounts')
 }
 
 async function getAllGames() {
     return await populateGameQuery(
-        Game.find()
+        Game.find({ quantityInStock: { $gt: 0 } })
             .limit(60)
             .select({
                 media: 0,
@@ -26,7 +23,13 @@ async function getAllGames() {
 
 async function getGameById(id) {
     try {
-        return await Game.findById(id)
+        const game = await Game.findById(id)
+
+        if (!game) {
+            throw new Error();
+        }
+
+        return game;
     } catch (err) {
         err.status = 404;
         throw err;
@@ -42,7 +45,8 @@ async function postGame({
     genres,
     tags,
     price,
-    discounts
+    discounts,
+    quantityInStock = 0
 }) {
     const obj = {
         name,
@@ -53,13 +57,14 @@ async function postGame({
         genres,
         tags,
         price,
-        discounts
+        discounts,
+        quantityInStock
     };
 
     validateGame(obj);
 
     try {
-        return await populateGameQuery(Game.create(obj));
+        return await populateGameQuery(await Game.create(obj));
     } catch (err) {
         err.status = 409;
         throw err;
@@ -75,7 +80,8 @@ async function editGame(id, {
     genres,
     tags,
     price,
-    discounts
+    discounts,
+    quantityInStock = 0
 }) {
     const obj = {
         name,
@@ -86,7 +92,8 @@ async function editGame(id, {
         genres,
         tags,
         price,
-        discounts
+        discounts,
+        quantityInStock
     };
 
     validateGame(obj);
@@ -103,7 +110,7 @@ async function editGame(id, {
 
 async function deleteGame(id) {
     try {
-        return await Game.findByIdAndDelete(id)
+        return await Game.findByIdAndDelete(id);
     } catch (err) {
         err.status = 404;
         throw err;

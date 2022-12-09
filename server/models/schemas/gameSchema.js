@@ -1,5 +1,5 @@
 const { Schema, Types } = require('mongoose');
-const { nonEmptyArray } = require('../../util/modelValidators');
+const { nonEmptyArray, isInteger } = require('../../util/modelValidators');
 
 const schema = new Schema({
     name: {
@@ -32,6 +32,12 @@ const schema = new Schema({
     tags: [{ type: Types.ObjectId, ref: 'Tag' }],
     price: { type: Number, required: true },
     discounts: [{ type: Types.ObjectId, ref: 'Discount' }],
+    quantityInStock: {
+        type: Number,
+        validate: isInteger,
+        min: 0,
+        required: true
+    }
 });
 
 module.exports = schema;
