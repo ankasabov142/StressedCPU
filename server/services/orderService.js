@@ -1,4 +1,4 @@
-const { Order, Address, Game } = require("../models");
+const { Order, Address, Game, Discount } = require("../models");
 const { ORDER_STATUS } = require("../util/constants");
 const errorMessages = require("../util/errorMessages");
 const { getUserCart } = require("./shoppingCartService");
@@ -49,19 +49,6 @@ async function makeOrder({ userId, addressId, discountCode }) {
         throw err;
     }
 
-    let discount;
-    if (discountCode) {
-        try {
-            discount = { percentage: 0 };
-            //                  TODO
-            totalOrderPrice *= (100 - discount.percentage) / 100;
-        } catch (err) {
-            err.status = 404;
-            err.customCaller = 'Discount';
-            throw err;
-        }
-    }
-
     let totalOrderPrice = 0;
 
     products = products.map(p => {
@@ -91,6 +78,25 @@ async function makeOrder({ userId, addressId, discountCode }) {
         }
     });
 
+    let discount;
+    if (discountCode) {
+        try {
+            discount = await Discount.findOne({ code: discountCode });
+
+            if (!discount.isPromoCode) {
+                throw new Error();
+            }
+
+            totalOrderPrice *= (100 - discount.percentage) / 100;
+        } catch (err) {
+            err.status = 404;
+            err.customCaller = 'Discount';
+            throw err;
+        }
+    }
+
+
+    
     for (const item of products) {
         await Game.updateOne({ _id: item.product._id }, { $inc: { quantityInStock: -1 } });
     }

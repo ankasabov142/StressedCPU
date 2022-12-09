@@ -6,6 +6,7 @@ const orderController = require('./orderController');
 const categoryController = require('./categoryController');
 const genreController = require('./genreController');
 const tagController = require('./tagController');
+const discountController = require('./discountController');
 
 function useControllers(app) {
     app.use('/user', userController);
@@ -16,6 +17,7 @@ function useControllers(app) {
     app.use('/categories', categoryController);
     app.use('/genres', genreController);
     app.use('/tags', tagController);
+    app.use('/discounts', discountController);
 }
 
 module.exports = useControllers;
