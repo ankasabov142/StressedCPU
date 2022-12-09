@@ -24,16 +24,14 @@ async function login({
     password
 }) {
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email }).populate(favouritesPopulateObj());
         const match = await bcrypt.compare(password, user.password);
 
         if (!match) {
             throw new Error();
         }
 
-        return getUserReturnInfo(
-            (await user.populate('favourites')).toObject()
-        );
+        return getUserReturnInfo(user.toObject());
     } catch (err) {
         err.message = 'Incorrect email or password';
         err.status = 401;
@@ -52,7 +50,7 @@ async function loginByToken(token) {
             throw new Error();
 
         return getUserReturnInfo(
-            await User.findById(jwtUser._id).populate('favourites').lean()
+            await User.findById(jwtUser._id).populate(favouritesPopulateObj()).lean()
         );
     } catch (err) {
         err.message = invalidSession();
@@ -109,7 +107,7 @@ async function editUser(id, {
     validateUserInfo(obj);
 
     try {
-        let user = await User.findById(id).populate('favourites');
+        let user = await User.findById(id).populate(favouritesPopulateObj());
         const match = await bcrypt.compare(obj.password, user.password);
 
         if (!match) {
@@ -131,12 +129,12 @@ async function editUser(id, {
 }
 
 async function getIsUserAdmin(userId) {
-    return await User.findById(userId).isAdmin;
+    return await User.findById(userId)?.isAdmin;
 }
 
 async function addFavourite({ gameId, userId }) {
     try {
-        let user = await User.findById(userId);
+        const user = await User.findById(userId);
 
         if (user.favourites.includes(gameId)) {
             const err = new Error('Game is already added to favourites');
@@ -146,9 +144,10 @@ async function addFavourite({ gameId, userId }) {
 
         user.favourites.push(gameId);
 
-        user = await user.save().populate('favourites');
+        return (await (await user.save())
+            .populate(favouritesPopulateObj()))
+            .favourites;
 
-        return user.favourites;
     } catch (err) {
         err.customCaller = "Game";
         if (!err.status)
@@ -161,7 +160,11 @@ async function removeFavourite({ gameId, userId }) {
     try {
         await User.updateOne({ _id: userId }, { $pull: { favourites: gameId } });
 
-        return await User.findById(userId).populate('favourites').favourites;
+        return (await User.findById(userId)
+            .populate(favouritesPopulateObj())
+            .select('favourites'))
+            .favourites;
+
     } catch (err) {
         err.customCaller = "Game";
         err.status = 404;
@@ -173,8 +176,6 @@ function getUserReturnInfo(user) {
     delete user.password;
 
     user.accessToken = generateJwt(user);
-
-    console.log(user);
 
     return user;
 }
@@ -201,6 +202,14 @@ function validateUserInfo(user) {
         msgPattern: () => 'Password must contain at least 1 of each: small and capital letters, digits, special characters'
     });
     validate.maxLength(user.password, 250, { name: 'Password' });
+}
+
+function favouritesPopulateObj() {
+    return {
+        path: 'favourites',
+        populate: 'categories genres tags',
+        select: '-description -media -__v'
+    }
 }
 
 module.exports = {

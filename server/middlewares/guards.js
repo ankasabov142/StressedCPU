@@ -26,6 +26,7 @@ module.exports = {
             if (!req.user || !getIsUserAdmin(req.user._id)) {
                 res.status(403).json({ message: 'You do not have permission to perform this action' })
             } else {
+                req.user.isAdmin = true;
                 next();
             }
         }

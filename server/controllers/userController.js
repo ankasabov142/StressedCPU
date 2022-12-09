@@ -35,9 +35,9 @@ router.put('/edit/:id', isUser(), async (req, res, next) => {
     }
 });
 
-router.post('/favourites', isUser(), async (req, res, next) => {
+router.post('/favourites/:id', isUser(), async (req, res, next) => {
     try {
-        res.json(await service.addFavourite({ userId: req.user._id, ...req.body }));
+        res.json(await service.addFavourite({ userId: req.user._id, gameId: req.params.id }));
     } catch (err) {
         next(err);
     }
