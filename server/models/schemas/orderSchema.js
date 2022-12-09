@@ -1,20 +1,29 @@
 const { Schema, Types } = require('mongoose');
-const { nonEmptyArray } = require('../../util/modelValidators');
+const { nonEmptyArray, inCollection } = require('../../util/modelValidators');
+const { ORDER_STATUS } = require('../../util/constants');
 
-const gameSchema = require('./gameSchema');
-const discountSchema = require('./discountSchema.js');
+const orderProductSchema = require('./orderProductSchema');
+const addressSchema = require('./addressSchema');
 
 const schema = new Schema({
-    user: {
+    userId: {
         type: Types.ObjectId,
         ref: 'User'
     },
+    address: {
+        type: addressSchema,
+        required: true
+    },
     products: {
-        type: [gameSchema],
+        type: [orderProductSchema],
+        required: true,
         validate: nonEmptyArray
     },
-    price: { type: Number, required: true, min: 0 },
-    discount: discountSchema
+    status: {
+        type: Number,
+        validate: inCollection(Object.values(ORDER_STATUS))
+    },
+    price: { type: Number, required: true, min: 0 }
 }, { timestamps: true });
 
 module.exports = schema;

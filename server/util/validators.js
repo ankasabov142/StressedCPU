@@ -42,6 +42,12 @@ module.exports = {
             ? num <= bound
             : num < bound, msgPattern(name, bound))
     ),
+    isInteger: (num,
+        { name = "Value",
+            msgPattern = errorMessages.isInteger
+        } = {}) => (
+        validate(Number.isInteger(num), msgPattern(name))
+    ),
     minLength: (text = '', length = 0, {
         orEqual = true,
         name = "Input",
@@ -68,5 +74,12 @@ module.exports = {
         const result = text.match(pattern);
 
         return validate(Boolean(result) && result[0] === text, msgPattern(name, text));
-    }
+    },
+    inCollection: (value, collection, {
+        name = "Value",
+        collectionName = "option",
+        msgPattern = errorMessages.invalid
+    } = {}) => (
+        validate(collection.includes(value), msgPattern(name, collectionName))
+    )
 }
