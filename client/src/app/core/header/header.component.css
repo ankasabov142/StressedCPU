@@ -1,0 +1,112 @@
+header {
+    background-color: var(--color-secondary-gray);
+    margin: 0;
+}
+
+.main {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    flex-wrap: wrap;
+    padding: 1rem 1.5rem;
+}
+
+/* logo */
+.logo {
+    font-family: 'Luckiest Guy', 'Helvetica', cursive;
+    user-select: none;
+    text-transform: uppercase;
+    font-size: 2.1rem;
+    flex: 1;
+    text-align: center;
+}
+
+.logo-accent {
+    color: var(--color-special-orange-dark);
+    font-weight: 600;
+}
+
+
+/* search bar */
+.search-bar-container {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+.search-bar {
+    margin-bottom: -1.25em;
+    width: 500px;
+}
+
+/* icons */
+.icons {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.icons .mat-icon {
+    transform: scale(1.5);
+    transition: all ease-in 0.1s;
+}
+
+.icons .icon-button:nth-child(2) {
+    margin-inline: 1rem;
+}
+
+.icons .icon-button:hover>.mat-icon {
+    color: var(--color-special-orange-warn)
+}
+
+/* nav */
+nav {
+    background-color: var(--color-secondary-orange);
+}
+
+nav .admin-button, nav .categories-button {
+    height: 3rem;
+    border-radius: 0;
+}
+
+nav .categories-button {
+    background-color: var(--color-secondary-gray);
+    padding-inline: 6rem;
+}
+
+nav .admin-button {
+    background-color: var(--color-special-gray-light);
+    padding-inline: 2rem;
+}
+
+nav .admin-button .mat-icon, nav .categories-button .mat-icon {
+    transform: scale(1.8);
+    margin-right: 0.8rem;
+}
+
+/* responsive */
+@media all and (max-width:1000px) {
+    .logo {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.6rem;
+    }
+}
+
+@media all and (max-width:700px) {
+    .search-bar {
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    .icons {
+        width: 100%;
+        justify-content: space-around;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+    }
+}

@@ -1,1 +1,121 @@
-/* You can add global styles to this file, and also import other style files */
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+}
+
+html {
+    --color-bg: rgb(18, 18, 18);
+    --color-secondary-gray: rgb(34, 34, 34);
+    --color-secondary-orange: rgb(219, 117, 42);
+    --color-special-gray-light: rgb(68, 68, 68);
+    --color-special-orange-light: rgb(206, 104, 0);
+    --color-special-orange-dark: rgb(230, 97, 0);
+    --color-special-orange-warn: rgb(220, 75, 54);
+    --color-text-main: rgb(246, 246, 246);
+    --color-text-title: rgb(255, 255, 255);
+    --color-text-special: rgb(194, 61, 0);
+
+    color: var(--color-text-main);
+    font-size: 18px;
+}
+
+body {
+    margin: 0 auto;
+    background: var(--color-bg);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+main {
+    margin: auto;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+    color: var(--color-text-title);
+}
+
+p {
+    font-size: 1rem;
+}
+
+h1 {
+    font-size: 1.96rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+/*Scrollbar*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #282C34;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3c4253;
+    border-radius: 15px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: gray;
+}
+
+/*Modal*/
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.comments-spinner-modal {
+    position: relative;
+    border-radius: 20px;
+}
+
+body {
+    margin: 0;
+}
+
+/* notification */
+
+.mat-snack-bar-container {
+    padding: 0 !important;
+    min-height: 0 !important;
+    max-width: none !important;
+    border-radius: 4px !important;
+    background-color: transparent !important;
+}
+
+/* badge */
+
+.mat-badge-content {
+    width: fit-content !important;
+    padding: 3px !important;
+    font-weight: 300 !important;
+    text-align: center !important;
+    vertical-align: middle !important;
+    line-height: 1rem !important;
+}
