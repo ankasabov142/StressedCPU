@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { getError } from 'src/app/shared/util/functions';
 import patterns from 'src/app/shared/util/patterns';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-register-form',
@@ -15,6 +16,8 @@ export class RegisterFormComponent {
   get hidePassword(): Boolean { return this._hidePassword; }
   get hideRepassword(): Boolean { return this._hideRepassword; }
   get patterns() { return patterns };
+
+  constructor(private userService: UserService) { }
 
   togglePasswordVisibility(): void {
     this._hidePassword = !this._hidePassword;
@@ -41,6 +44,7 @@ export class RegisterFormComponent {
   }
 
   registerHandler(form: NgForm): void {
-    console.log(form.value);
+    const { email, phoneNumber, firstName, lastName, password, repassword } = form.value;
+    this.userService.register({ email, phoneNumber, firstName, lastName, password, repassword });
   }
 }

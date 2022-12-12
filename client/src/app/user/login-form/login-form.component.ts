@@ -31,5 +31,6 @@ export class LoginFormComponent {
 
   loginHandler(form: NgForm) {
     const { email, password } = form.value;
+    this.userService.login({ email, password });
   }
 }
