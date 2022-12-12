@@ -1,0 +1,12 @@
+main {
+    margin: auto;
+    background-color: var(--color-secondary-gray);
+    width: 1200px;
+    padding-bottom: 2rem;
+}
+
+@media all and (max-width: 1250px) {
+    main {
+        width: 100%;
+    }
+}

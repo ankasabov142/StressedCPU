@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatBadgeModule } from '@angular/material/badge'
 import { RouterModule } from '@angular/router';
+import { FooterComponent } from './footer/footer.component';
 import { LocalStorage } from '../injection-tokens';
 
 
@@ -16,6 +17,7 @@ import { LocalStorage } from '../injection-tokens';
 @NgModule({
   declarations: [
     HeaderComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +31,7 @@ import { LocalStorage } from '../injection-tokens';
   ],
   exports: [
     HeaderComponent,
+    FooterComponent
   ],
   providers: [
     {
