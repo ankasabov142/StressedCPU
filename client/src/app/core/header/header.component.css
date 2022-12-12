@@ -22,6 +22,10 @@ header {
     text-align: center;
 }
 
+.logo:hover {
+    cursor: pointer;
+}
+
 .logo-accent {
     color: var(--color-special-orange-dark);
     font-weight: 600;
@@ -33,10 +37,11 @@ header {
     flex: 2;
     display: flex;
     justify-content: center;
+    margin-inline: 1rem;
 }
 
 .search-bar {
-    margin-bottom: -1.25em;
+    margin-bottom: -1.25rem;
     width: 500px;
 }
 
@@ -85,28 +90,38 @@ nav .admin-button .mat-icon, nav .categories-button .mat-icon {
     margin-right: 0.8rem;
 }
 
+nav .admin-button h2, nav .categories-button h2 {
+    font-size: 1rem;
+}
+
 /* responsive */
 @media all and (max-width:1000px) {
     .logo {
-        width: 100%;
+        flex: 50%;
         text-align: center;
-        margin-bottom: 0.6rem;
+    }
+
+    .icons {
+        flex: 50%;
+    }
+
+    .search-bar-container {
+        margin-top: 8px;
+        width: 100% !important;
     }
 }
 
 @media all and (max-width:700px) {
-    .search-bar {
-        text-align: center;
-        margin-bottom: 0;
-    }
-
-    .icons {
-        width: 100%;
-        justify-content: space-around;
+    .icons .mat-icon {
+        transform: scale(1);
     }
 
     nav {
         display: flex;
         flex-direction: column;
+    }
+
+    nav .categories-button, nav .admin-button {
+        padding-inline: 0;
     }
 }

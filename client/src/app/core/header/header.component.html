@@ -1,28 +1,12 @@
 <header>
     <section class="main">
-        <h1 class="logo">Stressed<span class="logo-accent">CPU</span>
-        </h1>
+        <h1 routerLink="/" class="logo">Stressed<span class="logo-accent">CPU</span></h1>
 
-        <article class="search-bar-container">
-            <mat-form-field class="search-bar" appearance="outline" color="warn">
-                <mat-label>Search for a game...</mat-label>
-                <input matInput placeholder="Search for a game...">
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
-        </article>
+        <ng-container *ngTemplateOutlet="isMobile ? icons : searchBar">
+        </ng-container>
 
-        <article class="icons">
-            <a class="icon-button" color="warn" mat-icon-button>
-                <mat-icon color="accent">person</mat-icon>
-            </a>
-            <a class="icon-button" color="warn" mat-icon-button>
-                <mat-icon color="accent">favorites</mat-icon>
-            </a>
-            <a class="icon-button" color="warn" mat-icon-button matBadge="999.99&euro;"
-                matBadgeDescription="Total price of products in shopping cart" matBadgeColor="warn">
-                <mat-icon color="accent">shopping_cart</mat-icon>
-            </a>
-        </article>
+        <ng-container *ngTemplateOutlet="isMobile ? searchBar : icons">
+        </ng-container>
     </section>
     <nav>
         <button mat-stroked-button color="accent" class="categories-button">
@@ -35,3 +19,29 @@
         </a>
     </nav>
 </header>
+
+<ng-template #searchBar>
+    <article class="search-bar-container">
+        <mat-form-field class="search-bar" appearance="outline" color="warn">
+            <mat-label>Search for a game...</mat-label>
+            <input matInput placeholder="Search for a game...">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </article>
+</ng-template>
+
+<ng-template #icons>
+    <article class="icons">
+        <a routerLink="/profile" class="icon-button" color="warn" mat-icon-button>
+            <mat-icon color="accent">person</mat-icon>
+        </a>
+        <a class="icon-button" color="warn" mat-icon-button>
+            <mat-icon color="accent" [matBadge]="getFavItems" matBadgeColor="warn"
+                matBadgeSize="small">favorites</mat-icon>
+        </a>
+        <a class="icon-button" color="warn" mat-icon-button>
+            <mat-icon color="accent" [matBadge]="getCartItems" matBadgeColor="warn"
+                matBadgeSize="small">shopping_cart</mat-icon>
+        </a>
+    </article>
+</ng-template>
