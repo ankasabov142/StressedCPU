@@ -72,8 +72,8 @@ module.exports = {
         msgPattern = errorMessages.invalid
     } = {}) => {
         const result = text.match(pattern);
-
-        return validate(Boolean(result) && result[0] === text, msgPattern(name, text));
+        const isWholeMatch = matchWhole && result[0] === text;
+        return validate(Boolean(result) && isWholeMatch, msgPattern(name, text));
     },
     inCollection: (value, collection, {
         name = "Value",

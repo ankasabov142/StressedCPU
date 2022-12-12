@@ -64,8 +64,13 @@ async function register({
     lastName,
     email,
     phoneNumber,
-    password
+    password,
+    repassword
 }) {
+    if (password?.trim() !== repassword?.trim()) {
+        throw new Error('Passwords do not match');
+    }
+
     const obj = {
         firstName,
         lastName,
