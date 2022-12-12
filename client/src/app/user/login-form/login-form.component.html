@@ -1,0 +1,23 @@
+<form class="form" #form="ngForm" (ngSubmit)="loginHandler(form)">
+    <mat-form-field appearance="outline" color="warn">
+        <mat-label>Email</mat-label>
+        <input ngModel #email="ngModel" name="email" required email [pattern]="patterns.email" matInput
+            placeholder="Email" type="email">
+        <mat-icon matSuffix color="accent">mail</mat-icon>
+        <mat-error *ngIf="email.invalid && email.dirty && email.touched">{{getEmailError(email)}}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="warn">
+        <mat-label>Password</mat-label>
+        <input ngModel #password="ngModel" name="password" required [minlength]="8" [maxlength]="250"
+            [pattern]="patterns.password" matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'">
+        <button type="button" mat-icon-button matSuffix color="accent" (click)="togglePasswordVisibility()">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.invalid && password.dirty && password.touched">{{getPasswordError(password)}}
+        </mat-error>
+    </mat-form-field>
+
+    <button [disabled]="form.invalid" type="submit" class="submit" mat-raised-button color="warn">
+        Login
+    </button>
+</form>

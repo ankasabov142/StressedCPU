@@ -1,0 +1,65 @@
+<form class="form" #form="ngForm" (ngSubmit)="registerHandler(form)">
+    <article class="names">
+        <mat-form-field appearance="outline" color="warn">
+            <mat-label>First name</mat-label>
+            <input ngModel #firstName="ngModel" name="firstName" required [maxlength]="50" matInput
+                placeholder="First name">
+            <mat-error
+                *ngIf="firstName.invalid && firstName.dirty && firstName.touched">{{getFirstNameError(firstName)}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" color="warn">
+            <mat-label>Last name</mat-label>
+            <input ngModel #lastName="ngModel" name="lastName" required [maxlength]="50" matInput
+                placeholder="Last name">
+            <mat-error *ngIf="lastName.invalid && lastName.dirty && lastName.touched">{{getLastNameError(lastName)}}
+            </mat-error>
+        </mat-form-field>
+    </article>
+
+
+    <mat-form-field appearance="outline" color="warn">
+        <mat-label>Email</mat-label>
+        <input ngModel #email="ngModel" name="email" required email [pattern]="patterns.email" matInput
+            placeholder="Email" type="email">
+        <mat-icon matSuffix color="accent">mail</mat-icon>
+        <mat-error *ngIf="email.invalid && email.dirty && email.touched">{{getEmailError(email)}}
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="warn">
+        <mat-label>Phone number</mat-label>
+        <input ngModel #phoneNumber="ngModel" name="phoneNumber" [maxlength]="15" matInput placeholder="Phone number"
+            type="tel">
+        <mat-icon matSuffix color="accent">call</mat-icon>
+        <mat-error *ngIf="password.invalid && password.dirty && password.touched">{{getPasswordError(password)}}
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="warn">
+        <mat-label>Password</mat-label>
+        <input ngModel #password="ngModel" name="password" required [minlength]="8" [maxlength]="250"
+            [pattern]="patterns.password" matInput placeholder="Password" [type]="hidePassword ? 'password' : 'text'">
+        <button type="button" mat-icon-button matSuffix color="accent" (click)="togglePasswordVisibility()">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="password.invalid && password.dirty && password.touched">{{getPasswordError(password)}}
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" color="warn">
+        <mat-label>Repeat password</mat-label>
+        <input ngModel #repassword="ngModel" name="repassword" required [minlength]="8" [maxlength]="250"
+            [pattern]="patterns.password" [matchInput]="password" matInput placeholder="Repeat password"
+            [type]="hideRepassword ? 'password' : 'text'">
+        <button type="button" mat-icon-button matSuffix color="accent" (click)="toggleRepasswordVisibility()">
+            <mat-icon>{{hideRepassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="repassword.invalid && repassword.dirty && repassword.touched">{{getPasswordError(repassword)}}
+        </mat-error>
+    </mat-form-field>
+
+    <button [disabled]="form.invalid" type="submit" class="submit" mat-raised-button color="warn">
+        Register
+    </button>
+</form>

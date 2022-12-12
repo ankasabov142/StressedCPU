@@ -15,13 +15,35 @@ html {
     --color-text-title: rgb(255, 255, 255);
     --color-text-special: rgb(194, 61, 0);
 
+    background-color: var(--color-secondary-orange);
     color: var(--color-text-main);
-    font-size: 18px;
+    font-size: 16px;
+}
+
+@media all and (max-width: 700px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+app-root {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 body {
     margin: 0 auto;
-    background: var(--color-bg);
+    background: linear-gradient(90deg,
+            var(--color-secondary-orange) 0%,
+            var(--color-bg) 50%,
+            var(--color-secondary-orange) 100%);
+
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
         'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
         sans-serif;
@@ -33,10 +55,6 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
-}
-
-main {
-    margin: auto;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -58,6 +76,44 @@ h1 {
 
 h2 {
     font-size: 1.5rem;
+}
+
+/* form */
+.form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    border-radius: 4px;
+    width: 400px;
+}
+
+.form>.mat-mdc-form-field {
+    margin-bottom: 4px;
+    text-align: end;
+}
+
+@media all and (max-width: 420px) {
+    .form {
+        width: 90%;
+    }
+}
+
+/* input */
+input:focus {
+    font-size: 16px !important;
+}
+
+mat-form-field {
+    font-size: 1rem !important;
+}
+
+mat-form-field .mat-mdc-floating-label {
+    top: 50% !important;
+}
+
+.mat-mdc-form-field-infix {
+    min-height: unset !important;
+    padding-block: 0.8rem !important;
 }
 
 /*Scrollbar*/
@@ -112,10 +168,7 @@ body {
 /* badge */
 
 .mat-badge-content {
-    width: fit-content !important;
-    padding: 3px !important;
-    font-weight: 300 !important;
+    font-weight: 400 !important;
     text-align: center !important;
     vertical-align: middle !important;
-    line-height: 1rem !important;
 }
