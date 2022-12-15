@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
 import { getError } from 'src/app/shared/util/functions';
 import patterns from 'src/app/shared/util/patterns';
-import { UserService } from '../user.service';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-register-form',

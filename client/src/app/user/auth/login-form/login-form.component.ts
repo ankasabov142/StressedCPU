@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm, NgModel } from '@angular/forms';
-import { UserService } from '../user.service';
+import { UserService } from '../../user.service';
 import patterns from 'src/app/shared/util/patterns';
 import { getError } from 'src/app/shared/util/functions';
 
