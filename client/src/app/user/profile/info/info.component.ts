@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import IUser from 'src/app/interfaces/IUser';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-info',
@@ -6,4 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./info.component.css']
 })
 export class InfoComponent {
+  constructor(private userService: UserService) { }
+
+  get user(): IUser { return this.userService.user!; };
 }

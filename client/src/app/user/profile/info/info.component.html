@@ -1,2 +1,26 @@
 <section class="container">
+    <mat-icon color="accent" class="avatar-icon">person</mat-icon>
+    <h1>{{user.firstName}} {{user.lastName}}</h1>
+    <article class="info">
+        <article class="info-item-container">
+            <mat-icon class="icon">mail</mat-icon>
+            <article>
+                <h2 class="item-text">Email</h2>
+                <h2 class="item-data">{{user.email}}</h2>
+            </article>
+        </article>
+
+        <div class="separator"></div>
+
+        <article class="info-item-container">
+            <mat-icon class="icon">phone</mat-icon>
+            <article>
+                <h2 class="item-text">Phone number</h2>
+                <h2 class="item-data">{{user.phoneNumber}}</h2>
+            </article>
+        </article>
+        <button mat-stroked-button color="warn" class="edit-btn">
+            Edit profile
+        </button>
+    </article>
 </section>

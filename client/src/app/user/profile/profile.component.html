@@ -1,2 +1,36 @@
 <section class="container">
+    <section class="links">
+        <a routerLink="/profile/info" routerLinkActive="active" class="link" mat-stroked-button color="accent">
+            <mat-icon class="icon">person</mat-icon>
+            <h2>
+                Personal information
+            </h2>
+        </a>
+        <a routerLink="/profile/addresses" routerLinkActive="active" class="link" mat-stroked-button color="accent">
+            <mat-icon class="icon">maps_home_work</mat-icon>
+            <h2>
+                Addresses
+            </h2>
+        </a>
+        <a routerLink="/profile/orders" routerLinkActive="active" class="link" mat-stroked-button color="accent">
+            <mat-icon class="icon">list_alt</mat-icon>
+            <h2>
+                Orders
+            </h2>
+        </a>
+        <a routerLink="/profile/favourites" routerLinkActive="active" class="link" mat-stroked-button color="accent">
+            <mat-icon class="icon">favorite</mat-icon>
+            <h2>
+                Favourites
+            </h2>
+        </a>
+        <a routerLink="/profile/logout" class="link logout" mat-stroked-button color="warn">
+            <h2>
+                Logout
+            </h2>
+        </a>
+    </section>
+    <section class="content">
+        <router-outlet></router-outlet>
+    </section>
 </section>

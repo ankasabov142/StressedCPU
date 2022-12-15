@@ -7,3 +7,58 @@
     flex-direction: column;
     position: relative;
 }
+
+.avatar-icon {
+    font-size: 10rem;
+    width: unset;
+    height: unset;
+    color: var(--color-special-orange-dark);
+
+}
+
+.info {
+    margin-top: 1.5rem;
+    border: 2px solid var(--color-special-gray-light);
+    padding: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.icon {
+    position: relative;
+    margin-right: 1.2rem;
+    color: var(--color-secondary-orange);
+    font-size: 2.5rem;
+    height: unset;
+    width: unset;
+}
+
+.item-text {
+    color: var(--color-special-orange-dark);
+    font-size: 1.2rem;
+}
+
+.item-data {
+    color: var(--color-text-title);
+    font-size: 1.4rem;
+}
+
+.separator {
+    background-color: var(--color-special-gray-light);
+    height: 2px;
+}
+
+.info>.separator {
+    margin-block: 1rem;
+}
+
+.edit-btn {
+    margin-top: 1rem;
+}
