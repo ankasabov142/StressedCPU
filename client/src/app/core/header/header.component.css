@@ -62,7 +62,7 @@ header {
 }
 
 .icons .icon-button:hover>.mat-icon {
-    color: var(--color-special-orange-warn)
+    color: var(--color-warn)
 }
 
 /* nav */

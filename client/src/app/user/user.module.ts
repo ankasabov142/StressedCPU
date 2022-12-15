@@ -6,6 +6,11 @@ import { UserRoutingModule } from './user-routing.module';
 import { AuthComponent } from './auth/auth.component';
 import { LoginFormComponent } from './auth/login-form/login-form.component';
 import { RegisterFormComponent } from './auth/register-form/register-form.component';
+import { ProfileComponent } from './profile/profile.component';
+import { InfoComponent } from './profile/info/info.component';
+import { LogoutComponent } from './logout/logout.component';
+import { AddressesComponent } from './profile/addresses/addresses.component';
+import { OrdersComponent } from './profile/orders/orders.component';
 
 // @angular/material
 import { MatTabsModule } from '@angular/material/tabs';
@@ -20,6 +25,11 @@ import { MatButtonModule } from '@angular/material/button';
     AuthComponent,
     LoginFormComponent,
     RegisterFormComponent,
+    ProfileComponent,
+    OrdersComponent,
+    InfoComponent,
+    LogoutComponent,
+    AddressesComponent
   ],
   imports: [
     CommonModule,

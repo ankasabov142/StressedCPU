@@ -13,7 +13,7 @@
             <mat-icon color="warn">widgets</mat-icon>
             <h2>Categories</h2>
         </button>
-        <a mat-stroked-button color="accent" class="admin-button">
+        <a *ngIf="isAdmin" mat-stroked-button color="accent" class="admin-button">
             <mat-icon color="warn">admin_panel_settings</mat-icon>
             <h2>Admin Panel</h2>
         </a>
