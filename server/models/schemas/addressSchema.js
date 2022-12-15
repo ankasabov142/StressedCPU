@@ -36,7 +36,7 @@ const schema = new Schema({
         required: true,
         maxLength: 250
     },
-    additionalInfo:{
+    additionalInfo: {
         type: String,
         maxLength: 2500
     }

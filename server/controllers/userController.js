@@ -11,7 +11,7 @@ router.post('/login', isGuest(), async (req, res, next) => {
     }
 });
 
-router.post('/login/token', isGuest(), async (req, res, next) => {
+router.post('/login/token', async (req, res, next) => {
     try {
         res.json(await service.loginByToken(req.body.accessToken));
     } catch (err) {
