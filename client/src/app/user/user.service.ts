@@ -1,10 +1,13 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
+import { Observable, catchError, pipe } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 import { LocalStorage } from '../injection-tokens';
+import IAddress from '../interfaces/IAddress';
 import IUser from '../interfaces/IUser';
 
-const URL = `${env.API_URL}/user`;
+const USER_URL = `${env.API_URL}/user`;
+const ADDRESS_URL = `${env.API_URL}/addresses`;
 
 @Injectable({
   providedIn: 'root'
@@ -17,17 +20,17 @@ export class UserService {
   get isAuth(): boolean { return Boolean(this.user); };
   get isAdmin(): boolean { return Boolean(this.user?.isAdmin); };
 
+  get authHeaderOptions() {
+    return {
+      headers: new HttpHeaders({ 'x-authorization': this.accessToken || '' })
+    }
+  }
+
   constructor(
     @Inject(LocalStorage) private localStorage: Window['localStorage'],
     private http: HttpClient
   ) {
     this.accessToken = this.localStorage.getItem('accessToken');
-  }
-
-  get authHeaderOptions() {
-    return {
-      headers: new HttpHeaders({ 'x-authorization': this.accessToken || '' })
-    }
   }
 
   private handleUserAuth(user: IUser, isNewUser = false): void {
@@ -38,7 +41,7 @@ export class UserService {
 
   private handleError(err: HttpErrorResponse): void {
     console.error(err);
-    alert(err.error.message);
+    alert(err.error.message || err.message);
   }
 
   persistedLogin(): void {
@@ -46,7 +49,7 @@ export class UserService {
       return;
     }
 
-    this.http.post<IUser>(`${URL}/login/token`, { accessToken: this.accessToken }, this.authHeaderOptions).subscribe({
+    this.http.post<IUser>(`${USER_URL}/login/token`, { accessToken: this.accessToken }, this.authHeaderOptions).subscribe({
       next: (user: IUser) => {
         this.handleUserAuth(user);
       },
@@ -58,7 +61,7 @@ export class UserService {
   }
 
   login(body: { email: string, password: string }): void {
-    this.http.post<IUser>(`${URL}/login`, body, this.authHeaderOptions).subscribe({
+    this.http.post<IUser>(`${USER_URL}/login`, body, this.authHeaderOptions).subscribe({
       next: (user: IUser) => {
         this.handleUserAuth(user);
       },
@@ -77,7 +80,7 @@ export class UserService {
     password: string,
     repassword: string,
   }): void {
-    this.http.post<IUser>(`${URL}/register`, body, this.authHeaderOptions).subscribe({
+    this.http.post<IUser>(`${USER_URL}/register`, body, this.authHeaderOptions).subscribe({
       next: (user: IUser) => {
         this.handleUserAuth(user);
       },
@@ -95,7 +98,7 @@ export class UserService {
   }
 
   editProfile(body: { username: string, imageUrl: string | undefined, password: string }): void {
-    this.http.post<IUser>(`${URL}/edit-profile`, body, this.authHeaderOptions).subscribe({
+    this.http.post<IUser>(`${USER_URL}/edit-profile`, body, this.authHeaderOptions).subscribe({
       next: (user: IUser) => {
         this.handleUserAuth(user);
       },
@@ -104,5 +107,37 @@ export class UserService {
         this.handleError(err);
       }
     })
+  }
+
+  getAddresses(): Observable<IAddress[]> {
+    return this.http.get<IAddress[]>(ADDRESS_URL, this.authHeaderOptions)
+      .pipe(catchError((err) => {
+        this.handleError(err);
+        return [];
+      }));
+  }
+
+  postAddress(body: IAddress): Observable<IAddress[]> {
+    return this.http.post<IAddress[]>(ADDRESS_URL, body, this.authHeaderOptions)
+      .pipe(catchError((err) => {
+        this.handleError(err);
+        return [];
+      }));
+  }
+
+  editAddress(addressId: string): Observable<IAddress[]> {
+    return this.http.put<IAddress[]>(`${ADDRESS_URL}/${addressId}`, this.authHeaderOptions)
+      .pipe(catchError((err) => {
+        this.handleError(err);
+        return [];
+      }));
+  }
+
+  deleteAddress(addressId: string): Observable<IAddress[]> {
+    return this.http.delete<IAddress[]>(`${ADDRESS_URL}/${addressId}`, this.authHeaderOptions)
+      .pipe(catchError((err) => {
+        this.handleError(err);
+        return [];
+      }));
   }
 }

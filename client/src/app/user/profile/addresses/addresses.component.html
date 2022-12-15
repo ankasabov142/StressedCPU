@@ -1,2 +1,31 @@
 <section class="container">
+    <h1 class="title">My addresses</h1>
+    <article class="info" *ngIf="addresses; else loader">
+        <article class="info-item" *ngFor="let address of addresses">
+            <article class="info-item-header">
+                <mat-icon class="icon">home</mat-icon>
+                <article>
+                    <h2>{{address.recipientName}}</h2>
+                    <h2 class="phone-number">{{address.phoneNumber}}</h2>
+                </article>
+            </article>
+            <article class="info-item-content">
+                <p>{{address.postcode}}, {{address.city}}, {{address.country}}</p>
+                <p>{{address.address}}</p>
+                <p *ngIf="address.additionalInfo">{{address.additionalInfo}}</p>
+            </article>
+        </article>
+
+        <article *ngIf="addresses.length === 0" class="info-item">
+            <h1>No addresses added</h1>
+        </article>
+
+        <button mat-stroked-button color="warn" class="add-btn">
+            <mat-icon class="icon">add</mat-icon>
+        </button>
+    </article>
 </section>
+
+<ng-template #loader>
+    <mat-spinner color="warn"></mat-spinner>
+</ng-template>

@@ -7,3 +7,86 @@
     flex-direction: column;
     position: relative;
 }
+
+.title {
+    margin-bottom: 1.5rem;
+}
+
+.info {
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: 49% 49%;
+    grid-auto-rows: 1fr;
+    column-gap: 2%;
+    row-gap: 0.8rem;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+@media all and(max-width: 700) {
+    .info {
+        grid-template-columns: 100%;
+        column-gap: 0;
+    }
+
+    .info-item {}
+}
+
+
+.info-item {
+    border: 1px solid var(--color-special-gray-light);
+    border-radius: 4px;
+    padding: 1.5rem;
+    /* min-width: 100%; */
+}
+
+h2.phone-number {
+    font-size: 1.3rem;
+}
+
+.icon {
+    position: relative;
+    color: var(--color-secondary-orange);
+    font-size: 3rem;
+    height: unset;
+    width: unset;
+}
+
+.info-item-header {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+}
+
+.info-item-header>article {
+    max-width: calc(100% - 3.5rem);
+    text-overflow: ellipsis;
+}
+
+.info-item-header .icon {
+    margin-right: 0.5rem;
+}
+
+.info-item-header h2, .info-item-header {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.item-text {
+    color: var(--color-special-orange-dark);
+    font-size: 1.2rem;
+}
+
+.item-data {
+    color: var(--color-text-title);
+    font-size: 1.4rem;
+}
+
+.add-btn {
+    height: 100%;
+}
+
+.add-btn .icon {
+    font-size: 5rem;
+}
