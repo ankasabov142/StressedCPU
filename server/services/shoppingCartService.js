@@ -6,7 +6,7 @@ const EMPTY_CART = { empty: true };
 function getPopulateObj() {
     return {
         path: 'products.product',
-        populate: 'categories genres tags',
+        populate: 'categories genres tags discounts',
         select: '-description -media -__v'
     };
 }
@@ -19,6 +19,7 @@ async function getUserCart(userId, { wholeDocument = false } = {}) {
             cart = await ShoppingCart.findOne({ userId });
         } else {
             cart = (await ShoppingCart.findOne({ userId }).populate(getPopulateObj())).products;
+            console.log(cart)
         }
 
         if (!cart) {
@@ -106,11 +107,6 @@ async function emptyCart(userId) {
 
     return res;
 }
-
-async function orderFromCart(userId) {
-    const cart = await getUserCart(userId, { wholeDocument: true })
-}
-
 
 module.exports = {
     getUserCart,

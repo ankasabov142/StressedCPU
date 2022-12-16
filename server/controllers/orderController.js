@@ -24,17 +24,17 @@ router.get('/', isAdmin(), async (req, res, next) => {
     }
 });
 
-router.get('/:id', isUser(), async (req, res, next) => {
+router.get('/user', isUser(), async (req, res, next) => {
     try {
-        res.json(await service.getOrderDetails({ user: req.user, orderId: req.params.id }));
+        res.json(await service.getUserOrders(req.user._id));
     } catch (err) {
         next(err);
     }
 });
 
-router.get('/user', isUser(), async (req, res, next) => {
+router.get('/:id', isUser(), async (req, res, next) => {
     try {
-        res.json(await service.getUserOrders(req.user._id));
+        res.json(await service.getOrderDetails({ user: req.user, orderId: req.params.id }));
     } catch (err) {
         next(err);
     }

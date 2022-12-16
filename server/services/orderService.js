@@ -57,11 +57,10 @@ async function makeOrder({ userId, addressId, discountCode }) {
             err.status = 409;
             throw err;
         }
-
-        let pricePercentage = Math.max(
+        
+        let pricePercentage = Math.min(
             p.product.discounts.reduce((percentage, discount) => percentage - discount.percentage, 100),
-            0
-        )
+            100) || 100;
 
         const price = (pricePercentage / 100) * p.product.price;
 
@@ -95,19 +94,19 @@ async function makeOrder({ userId, addressId, discountCode }) {
         }
     }
 
-
-    
-    for (const item of products) {
-        await Game.updateOne({ _id: item.product._id }, { $inc: { quantityInStock: -1 } });
-    }
-
-    return await Order.create({
+    const order = await Order.create({
         userId,
         address,
         products,
         status: ORDER_STATUS.AWAITING_CONFIRMATION,
         price: totalOrderPrice
     });
+
+    for (const item of products) {
+        await Game.updateOne({ _id: item.product._id }, { $inc: { quantityInStock: -1 } });
+    }
+
+    return order;
 }
 
 async function setOrderStatus(orderId, status) {
