@@ -4,10 +4,12 @@ import { Observable, catchError, pipe } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 import { LocalStorage } from '../injection-tokens';
 import IAddress from '../interfaces/IAddress';
+import IOrder from '../interfaces/IOrder';
 import IUser from '../interfaces/IUser';
 
 const USER_URL = `${env.API_URL}/user`;
 const ADDRESS_URL = `${env.API_URL}/addresses`;
+const ORDERS_URL = `${env.API_URL}/orders`;
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +45,9 @@ export class UserService {
     console.error(err);
     alert(err.error.message || err.message);
   }
+
+
+  // Auth
 
   persistedLogin(): void {
     if (!this.accessToken) {
@@ -109,6 +114,9 @@ export class UserService {
     })
   }
 
+
+  // Addresses
+
   getAddresses(): Observable<IAddress[]> {
     return this.http.get<IAddress[]>(ADDRESS_URL, this.authHeaderOptions)
       .pipe(catchError((err) => {
@@ -135,6 +143,25 @@ export class UserService {
 
   deleteAddress(addressId: string): Observable<IAddress[]> {
     return this.http.delete<IAddress[]>(`${ADDRESS_URL}/${addressId}`, this.authHeaderOptions)
+      .pipe(catchError((err) => {
+        this.handleError(err);
+        return [];
+      }));
+  }
+
+
+  // Orders
+
+  getUserOrders(): Observable<IOrder[]> {
+    return this.http.get<IOrder[]>(`${ORDERS_URL}/user`, this.authHeaderOptions)
+      .pipe(catchError((err) => {
+        this.handleError(err);
+        return [];
+      }));
+  }
+
+  postOrder(body: IOrder): Observable<IOrder[]> {
+    return this.http.post<IOrder[]>(ORDERS_URL, body, this.authHeaderOptions)
       .pipe(catchError((err) => {
         this.handleError(err);
         return [];

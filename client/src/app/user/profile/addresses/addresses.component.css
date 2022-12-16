@@ -23,13 +23,11 @@
     min-width: 100%;
 }
 
-@media all and(max-width: 700) {
+@media all and (max-width: 700px) {
     .info {
         grid-template-columns: 100%;
         column-gap: 0;
     }
-
-    .info-item {}
 }
 
 
@@ -71,16 +69,6 @@ h2.phone-number {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-}
-
-.item-text {
-    color: var(--color-special-orange-dark);
-    font-size: 1.2rem;
-}
-
-.item-data {
-    color: var(--color-text-title);
-    font-size: 1.4rem;
 }
 
 .add-btn {

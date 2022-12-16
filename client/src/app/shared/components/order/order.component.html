@@ -1,0 +1,85 @@
+<section class="order-container">
+    <article class="order">
+        <article class="order-data">
+            <!-- date -->
+            <article class="order-data-item" matTooltip="Date of order" matTooltipPosition="left">
+                <mat-icon class="order-data-icon lightred">calendar_month</mat-icon>
+                <p>
+                    {{order.createdAt | date}}
+                </p>
+            </article>
+            <!-- price -->
+            <article class="order-data-item" matTooltip="Total order price" matTooltipPosition="left">
+                <mat-icon class="order-data-icon darkgreen">payments</mat-icon>
+                <p>
+                    &euro;{{order.price.toFixed(2)}}
+                </p>
+            </article>
+            <!-- status -->
+            <article class="order-data-item" matTooltip="Current order status" matTooltipPosition="left">
+                <mat-icon
+                    [ngClass]="['order-data-icon', getStatusIcon(order.status).color]">{{getStatusIcon(order.status).icon}}</mat-icon>
+                <p class="order-data-text">
+                    {{getStatus(order.status)}}
+                </p>
+            </article>
+        </article>
+        <button mat-icon-button color="warn" (click)="isExpanded = !isExpanded">
+            <mat-icon class="icon-expand">{{isExpanded ? 'expand_less' : 'expand_more'}}</mat-icon>
+        </button>
+    </article>
+
+    <section *ngIf="isExpanded" class="full-info">
+        <article class="address">
+            <article class="address-header">
+                <mat-icon class="address-icon">home</mat-icon>
+                <article>
+                    <h2 matTooltip="Recipient name" matTooltipPosition="right">{{order.address.recipientName}}</h2>
+                    <h2 matTooltip="Phone number" matTooltipPosition="right" class="phone-number">
+                        {{order.address.phoneNumber}}</h2>
+                </article>
+            </article>
+            <article class="address-content">
+                <p matTooltip="Postcode, city, country" matTooltipPosition="left">{{order.address.postcode}},
+                    {{order.address.city}},
+                    {{order.address.country}}</p>
+                <p matTooltip="Address details" matTooltipPosition="left">{{order.address.address}}</p>
+                <p *ngIf="order.address.additionalInfo" matTooltip="Additional information" matTooltipPosition="left">
+                    {{order.address.additionalInfo}}</p>
+            </article>
+        </article>
+        <article class="products">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="product-header">Product</th>
+                        <th>Unit price</th>
+                        <th>Qty</th>
+                        <th>Total price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of order.products">
+                        <td class="product-main">
+                            <img [src]="item.product.displayImage" alt="Could not load image">
+                            <p>{{item.product.name}}</p>
+                        </td>
+                        <td class="product-price">
+                            <p>&euro;{{item.product.price.toFixed(2)}}</p>
+                        </td>
+                        <td class="product-quantity">
+                            <p>{{item.quantity}}</p>
+                        </td>
+                        <td class="product-total-price">
+                            <p>&euro;{{(item.quantity * item.product.price).toFixed(2)}}</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 class="total-price">
+                <span class="total-price-text">Total:</span>
+                &euro;{{order.price.toFixed(2)}}
+            </h2>
+        </article>
+    </section>
+</section>

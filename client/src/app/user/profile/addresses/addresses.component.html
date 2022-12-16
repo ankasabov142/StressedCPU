@@ -5,19 +5,22 @@
             <article class="info-item-header">
                 <mat-icon class="icon">home</mat-icon>
                 <article>
-                    <h2>{{address.recipientName}}</h2>
-                    <h2 class="phone-number">{{address.phoneNumber}}</h2>
+                    <h2 matTooltip="Recipient name">{{address.recipientName}}</h2>
+                    <h2 matTooltip="Phone number" class="phone-number">
+                        {{address.phoneNumber}}</h2>
                 </article>
             </article>
             <article class="info-item-content">
-                <p>{{address.postcode}}, {{address.city}}, {{address.country}}</p>
-                <p>{{address.address}}</p>
-                <p *ngIf="address.additionalInfo">{{address.additionalInfo}}</p>
+                <p matTooltip="Postcode, city, country">{{address.postcode}},
+                    {{address.city}}, {{address.country}}</p>
+                <p matTooltip="Address details">{{address.address}}</p>
+                <p *ngIf="address.additionalInfo" matTooltip="Additional information">
+                    {{address.additionalInfo}}</p>
             </article>
         </article>
 
         <article *ngIf="addresses.length === 0" class="info-item">
-            <h1>No addresses added</h1>
+            <h1>You have not added any addresses yet</h1>
         </article>
 
         <button mat-stroked-button color="warn" class="add-btn">
