@@ -64,7 +64,7 @@ p, h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, th {
     color: var(--color-text-title);
 }
 
@@ -122,20 +122,19 @@ mat-form-field .mat-mdc-floating-label {
 
 /*Scrollbar*/
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 0.5rem;
 }
 
 ::-webkit-scrollbar-track {
-    background: #282C34;
+    background: var(--color-secondary-orange);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #3c4253;
-    border-radius: 15px;
+    background: var(--color-secondary-gray);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: gray;
+    background: var(--color-special-gray-light);
 }
 
 /*Modal*/
