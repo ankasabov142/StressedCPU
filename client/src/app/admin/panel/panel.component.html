@@ -1,0 +1,43 @@
+<section class="container">
+    <section class="links">
+        <a routerLink="/admin/orders" routerLinkActive="active" class="link" mat-stroked-button color="accent">
+            <mat-icon class="icon">list_alt</mat-icon>
+            <h2>
+                Orders
+            </h2>
+        </a>
+        <a routerLink="/admin/games" routerLinkActive="active" class="link" mat-stroked-button color="accent">
+            <mat-icon class="icon">videogame_asset</mat-icon>
+            <h2>
+                Games
+            </h2>
+        </a>
+        <a routerLink="/admin/categories" routerLinkActive="active" class="link" mat-stroked-button color="accent">
+            <mat-icon class="icon">category</mat-icon>
+            <h2>
+                Categories
+            </h2>
+        </a>
+        <a routerLink="/admin/genres" routerLinkActive="active" class="link" mat-stroked-button color="accent">
+            <mat-icon class="icon">gamepad</mat-icon>
+            <h2>
+                Genres
+            </h2>
+        </a>
+        <a routerLink="/admin/tags" routerLinkActive="active" class="link" mat-stroked-button color="accent">
+            <mat-icon class="icon">tag</mat-icon>
+            <h2>
+                Tags
+            </h2>
+        </a>
+        <a routerLink="/admin/discounts" routerLinkActive="active" class="link" mat-stroked-button color="accent">
+            <mat-icon class="icon">discount</mat-icon>
+            <h2>
+                Discounts
+            </h2>
+        </a>
+    </section>
+    <section class="content">
+        <router-outlet></router-outlet>
+    </section>
+</section>
