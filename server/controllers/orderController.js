@@ -9,7 +9,7 @@ function getStatusesFromQuery({ status }) {
     const validStatuses = Object.values(ORDER_STATUS);
 
     return status?.map(Number)
-        .filter(s => validStatuses.includes(s)) || [ORDER_STATUS.AWAITING_CONFIRMATION];
+        .filter(s => validStatuses.includes(s));
 }
 
 router.get('/', isAdmin(), async (req, res, next) => {
