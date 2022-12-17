@@ -7,24 +7,21 @@ import { UserService } from 'src/app/user/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  private cartItems: number = 0;
-  private favItems: number = 0;
   private screenWidth: number = window.innerWidth;
 
   get isAdmin(): boolean {
     return this.userService.isAdmin;
   }
 
-  get getCartItems(): number | null {
-    return this.cartItems === 0
-      ? null
-      : this.cartItems;
+  get getCartItemsCount(): number | null {
+    const count = this.userService.cart?.products.reduce((total, product) => total + product.quantity, 0);
+    const res = count === 0 ? null : count;
+
+    return res || null;
   }
 
-  get getFavItems(): number | null {
-    return this.favItems === 0
-      ? null
-      : this.favItems;
+  get getFavItemsCount(): number | null {
+    return null;
   }
 
   get isMobile(): boolean {
@@ -33,10 +30,6 @@ export class HeaderComponent {
 
   constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
-    this.cartItems = Math.round(Math.random() * 10); //todo
-    this.favItems = Math.round(Math.random() * 10); //todo
-  }
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {

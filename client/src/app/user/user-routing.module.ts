@@ -21,6 +21,7 @@ const routes: Routes = [
       { path: 'info', component: InfoComponent },
       { path: 'addresses', component: AddressesComponent },
       { path: 'orders', component: OrdersComponent },
+      { path: '**', redirectTo: 'info' }
     ]
   },
   {

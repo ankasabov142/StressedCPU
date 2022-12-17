@@ -27,6 +27,7 @@ export class OrderComponent {
     const entry = Object.entries(ORDER_STATUS).find(entry => entry[1].code === status);
     return entry ? entry[1].name : ORDER_STATUS.AWAITING_CONFIRMATION.name;
   }
+  
   getStatusIcon(status: any): { icon: string, color: string } {
     return STATUS_ICON[status]
       || STATUS_ICON[ORDER_STATUS.AWAITING_CONFIRMATION.code];

@@ -1,0 +1,91 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(5, 19%);
+    grid-auto-rows: 1fr;
+    column-gap: 1%;
+    row-gap: 0.8rem;
+    max-width: 100%;
+    min-width: 100%;
+    padding: 1rem;
+}
+
+.game {
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.game>* {
+    transition: all 0.2s ease-in-out;
+}
+
+.game:hover {
+    background-color: var(--color-bg);
+    cursor: pointer;
+    box-shadow: 0px 0px 4px 0px var(--color-bg);
+}
+
+.game>*:nth-child(even) {
+    margin-block: 6px;
+}
+
+.name:hover {
+    color: var(--color-special-orange-dark);
+}
+
+img {
+    height: 200px;
+    max-width: 100%;
+}
+
+.name {
+    font-size: 0.9rem;
+}
+
+.genres {
+    color: var(--color-accent);
+    font-size: 0.8rem;
+}
+
+.price {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.stars mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    color: var(--color-accent);
+}
+
+.icons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 0;
+}
+
+.actions {
+    display: flex;
+    /* transform: scale(0.6); */
+}
+
+.action-icon {
+    color: var(--color-special-orange-dark);
+    font-size: 1.6rem;
+}
+
+.action-icon:hover {
+    color: var(--color-warn);
+    transform: scale(1.2);
+}
+
+.action-icon:nth-child(1) {
+    margin-right: 6px;
+}

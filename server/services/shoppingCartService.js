@@ -1,7 +1,7 @@
 const { ShoppingCart, ShoppingCartProduct, Game } = require("../models")
 const shoppingCartProductSchema = require("../models/schemas/shoppingCartProductSchema");
 
-const EMPTY_CART = { empty: true };
+const EMPTY_CART = { empty: true, products: [] };
 
 function getPopulateObj() {
     return {
@@ -18,7 +18,7 @@ async function getUserCart(userId, { wholeDocument = false } = {}) {
         if (wholeDocument) {
             cart = await ShoppingCart.findOne({ userId });
         } else {
-            cart = (await ShoppingCart.findOne({ userId }).populate(getPopulateObj())).products;
+            cart = await ShoppingCart.findOne({ userId }).populate(getPopulateObj());
             console.log(cart)
         }
 
@@ -68,7 +68,7 @@ async function addProduct(userId, { gameId, quantity = 1 }) {  // current quanti
         cart.products[existingProductIndex].quantity = quantity;
     }
 
-    return (await (await cart.save()).populate(getPopulateObj())).products;
+    return await (await cart.save()).populate(getPopulateObj());
 }
 
 async function removeProduct(userId, { gameId, quantity = 0 }) { // current quantity of product in cart 
@@ -95,7 +95,7 @@ async function removeProduct(userId, { gameId, quantity = 0 }) { // current quan
         cart.products[productIndex].quantity = quantity;
     }
 
-    return (await (await cart.save()).populate(getPopulateObj())).products;
+    return await (await cart.save()).populate(getPopulateObj());
 }
 
 async function emptyCart(userId) {

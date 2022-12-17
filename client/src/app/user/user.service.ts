@@ -1,15 +1,18 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
-import { Observable, catchError, pipe } from 'rxjs';
+import { Observable, catchError, pipe, Subscription } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 import { LocalStorage } from '../injection-tokens';
 import IAddress from '../interfaces/IAddress';
+import ICart from '../interfaces/ICart';
+import ICartProduct from '../interfaces/ICartProduct';
 import IOrder from '../interfaces/IOrder';
 import IUser from '../interfaces/IUser';
 
 const USER_URL = `${env.API_URL}/user`;
 const ADDRESS_URL = `${env.API_URL}/addresses`;
 const ORDERS_URL = `${env.API_URL}/orders`;
+const CART_URL = `${env.API_URL}/cart`;
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +21,7 @@ export class UserService {
   user: IUser | undefined;
   accessToken: string | null = this.localStorage.getItem('accessToken') || null;
 
+  cart: ICart | undefined;
 
   get isAuth(): boolean { return Boolean(this.user); };
   get isAdmin(): boolean { return Boolean(this.user?.isAdmin); };
@@ -35,10 +39,15 @@ export class UserService {
     this.accessToken = this.localStorage.getItem('accessToken');
   }
 
+  isProductInCart(productId: string): boolean {
+    return Boolean(this.cart?.products?.some(p => p.product._id === productId));
+  }
+
   private handleUserAuth(user: IUser, isNewUser = false): void {
     this.localStorage.setItem('accessToken', user.accessToken);
     this.accessToken = user.accessToken;
     this.user = user;
+    this.loadUserData();
   }
 
   private handleError(err: HttpErrorResponse): void {
@@ -46,15 +55,17 @@ export class UserService {
     alert(err.error.message || err.message);
   }
 
-
+  private loadUserData(){
+    this.getCart();
+  }
   // Auth
 
-  persistedLogin(): void {
+  persistedLogin(): Subscription | null {
     if (!this.accessToken) {
-      return;
+      return null;
     }
 
-    this.http.post<IUser>(`${USER_URL}/login/token`, { accessToken: this.accessToken }, this.authHeaderOptions).subscribe({
+    return this.http.post<IUser>(`${USER_URL}/login/token`, { accessToken: this.accessToken }, this.authHeaderOptions).subscribe({
       next: (user: IUser) => {
         this.handleUserAuth(user);
       },
@@ -166,5 +177,61 @@ export class UserService {
         this.handleError(err);
         return [];
       }));
+  }
+
+  // shopping cart
+  getCart(): void {
+    this.http.get<ICart>(CART_URL, this.authHeaderOptions).subscribe({
+      next: (value: ICart) => {
+        this.cart = value;
+        console.log(value);
+      },
+      error: (err) => {
+        this.handleError(err);
+      }
+    })
+  }
+
+  addProductToCart({ gameId, quantity = 1 }: { gameId: string, quantity?: number }): void {
+    const currentQty = this.cart?.products.find(p => p.product._id === gameId)?.quantity;
+
+    this.http.post<ICart>(`${CART_URL}/add`, {
+      gameId,
+      quantity: currentQty ? currentQty + quantity : 1
+    }, this.authHeaderOptions).subscribe({
+      next: (value: ICart) => {
+        this.cart = value;
+      },
+      error: (err) => {
+        this.handleError(err);
+      }
+    })
+  }
+
+  removeProductFromCart({ gameId, quantity = 1 }: { gameId: string, quantity?: number }): void {
+    const currentQty = this.cart?.products.find(p => p.product._id === gameId)?.quantity;
+
+    this.http.post<ICart>(`${CART_URL}/remove`, {
+      gameId,
+      quantity: currentQty ? currentQty + quantity : 1
+    }, this.authHeaderOptions).subscribe({
+      next: (value: ICart) => {
+        this.cart = value;
+      },
+      error: (err) => {
+        this.handleError(err);
+      }
+    })
+  }
+
+  deleteProductFromCart(gameId: string) {
+    this.http.delete<ICart>(`${CART_URL}/delete/${gameId}`, this.authHeaderOptions).subscribe({
+      next: (value: ICart) => {
+        this.cart = value;
+      },
+      error: (err) => {
+        this.handleError(err);
+      }
+    })
   }
 }
