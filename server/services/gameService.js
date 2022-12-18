@@ -21,13 +21,13 @@ async function getAllGames() {
     );
 }
 
-async function getGamesByQuery(){
-    
+async function getGamesByQuery() {
+
 }
 
 async function getGameById(id) {
     try {
-        const game = await Game.findById(id)
+        const game = await populateGameQuery(Game.findById(id));
 
         if (!game) {
             throw new Error();
