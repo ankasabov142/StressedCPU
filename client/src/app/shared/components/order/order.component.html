@@ -1,6 +1,13 @@
 <section class="order-container">
     <article class="order">
         <article class="order-data">
+            <!-- id -->
+            <article *ngIf="isAdmin" class="order-data-item" matTooltip="Order ID" matTooltipPosition="left">
+                <mat-icon class="order-data-icon gray">tag</mat-icon>
+                <p>
+                    {{order._id}}
+                </p>
+            </article>
             <!-- date -->
             <article class="order-data-item" matTooltip="Date of order" matTooltipPosition="left">
                 <mat-icon class="order-data-icon lightred">calendar_month</mat-icon>
@@ -24,9 +31,23 @@
                 </p>
             </article>
         </article>
-        <button mat-icon-button color="warn" (click)="isExpanded = !isExpanded">
-            <mat-icon class="icon-expand">{{isExpanded ? 'expand_less' : 'expand_more'}}</mat-icon>
-        </button>
+        <article>
+            <button mat-icon-button color="warn" (click)="isExpanded = !isExpanded">
+                <mat-icon class="action-icon icon-expand">{{isExpanded ? 'expand_less' : 'expand_more'}}</mat-icon>
+            </button>
+            <ng-container *ngIf="isAdmin && menuOptions">
+                <button mat-icon-button color="warn" [matMenuTriggerFor]="menu">
+                    <mat-icon class="action-icon">more_horiz</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item *ngFor="let option of menuOptions" (click)="getMenuOptionAction(option.code)()">
+                        <mat-icon
+                            [ngClass]="['order-data-icon', getStatusIcon(option.code).color]">{{getStatusIcon(option.code).icon}}</mat-icon>
+                        {{option.name}}
+                    </button>
+                </mat-menu>
+            </ng-container>
+        </article>
     </article>
 
     <section *ngIf="isExpanded" class="full-info">

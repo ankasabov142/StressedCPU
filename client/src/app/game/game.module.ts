@@ -5,6 +5,7 @@ import { ProductsListComponent } from './products-list/products-list.component';
 import { GameRoutingModule } from './game-routing.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { CoreModule } from '../core/core.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     GameRoutingModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    CoreModule
   ]
 })
 export class GameModule { }

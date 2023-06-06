@@ -4,7 +4,7 @@ import { UserService } from '../../user.service';
 
 
 @Component({
-  selector: 'app-orders',
+  selector: 'app-profile-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.css']
 })

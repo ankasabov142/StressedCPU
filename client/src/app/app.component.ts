@@ -7,8 +7,8 @@ import { UserService } from './user/user.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'STRESSEDCPU';
-
+  title = 'GameStore';
+  
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {

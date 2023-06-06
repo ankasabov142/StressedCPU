@@ -1,1 +1,13 @@
-<p>games works!</p>
+<app-modal-loader *ngIf="isLoading"></app-modal-loader>
+
+<section class="container">
+    <h1 class="title">All games</h1>
+
+    <app-search-bar class="search" (queryEmitter)="query = $event" label="Find game by id..."> </app-search-bar>
+
+    <app-add-btn (click)="openDialog()" [icon]="isQueryEmpty ? 'add' : 'edit'"
+        [color]="isQueryEmpty ? 'warn' : 'accent'" class="add-btn"
+        [matTooltip]="isQueryEmpty ? 'Add game' : 'Edit game (by ID)'"></app-add-btn>
+
+    <h1 class="msg">Search for a game to edit in the search bar</h1>
+</section>

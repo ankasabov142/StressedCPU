@@ -10,21 +10,6 @@ import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: ProfileComponent,
-    canActivate: [AuthGuard],
-    data: {
-      isAuth: true,
-      onFailureRedirectUrl: '/profile/auth'
-    },
-    children: [
-      { path: 'info', component: InfoComponent },
-      { path: 'addresses', component: AddressesComponent },
-      { path: 'orders', component: OrdersComponent },
-      { path: '**', redirectTo: 'info' }
-    ]
-  },
-  {
     path: 'auth',
     component: AuthComponent,
     canActivate: [AuthGuard],
@@ -38,9 +23,24 @@ const routes: Routes = [
     component: LogoutComponent,
     canActivate: [AuthGuard],
     data: {
-      isAuth: false,
+      isAuth: true,
       onFailureRedirectUrl: '/profile/auth'
     }
+  },
+  {
+    path: '',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    data: {
+      isAuth: true,
+      onFailureRedirectUrl: '/profile/auth'
+    },
+    children: [
+      { path: 'info', component: InfoComponent },
+      { path: 'addresses', component: AddressesComponent },
+      { path: 'orders', component: OrdersComponent },
+      { path: '**', redirectTo: 'info' }
+    ]
   }
 ];
 

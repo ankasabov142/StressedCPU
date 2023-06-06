@@ -1,0 +1,5 @@
+<mat-form-field class="search-bar" appearance="outline" color="warn">
+    <mat-label>{{label}}</mat-label>
+    <input ngModel #query="ngModel" matInput [placeholder]="placeholder" (input)="emitQuery(query.value.trim())">
+    <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>

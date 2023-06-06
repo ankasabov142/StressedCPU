@@ -1,1 +1,29 @@
-<p>orders works!</p>
+<section class="container">
+    <h1 class="title">All orders</h1>
+    <article class="order-statuses">
+        <mat-chip-option (selectionChange)="toggleStatus(ORDER_STATUS.AWAITING_CONFIRMATION.code)" color="accent"
+            selected>{{ORDER_STATUS.AWAITING_CONFIRMATION.name}}</mat-chip-option>
+        <mat-chip-option (selectionChange)="toggleStatus(ORDER_STATUS.CONFIRMED.code)" color="warn"
+            selected>{{ORDER_STATUS.CONFIRMED.name}}</mat-chip-option>
+        <mat-chip-option (selectionChange)="toggleStatus(ORDER_STATUS.SENT.code)" class="orange"
+            selected>{{ORDER_STATUS.SENT.name}}</mat-chip-option>
+        <mat-chip-option (selectionChange)="toggleStatus(ORDER_STATUS.FULFILLED.code)"
+            class="darkgreen">{{ORDER_STATUS.FULFILLED.name}}</mat-chip-option>
+        <mat-chip-option (selectionChange)="toggleStatus(ORDER_STATUS.CANCELLED.code)"
+            class="red">{{ORDER_STATUS.CANCELLED.name}}</mat-chip-option>
+        <mat-chip-option (selectionChange)="toggleStatus(ORDER_STATUS.RETURNED.code)"
+            class="yellow">{{ORDER_STATUS.RETURNED.name}}</mat-chip-option>
+    </article>
+    <article class="orders-container" *ngIf="orders; else loader">
+
+        <app-order *ngFor="let order of orders" [order]="order" [isAdmin]="true"></app-order>
+
+        <article *ngIf="orders.length === 0" class="order empty-msg">
+            <h1>No orders found</h1>
+        </article>
+    </article>
+</section>
+
+<ng-template #loader>
+    <mat-spinner color="warn"></mat-spinner>
+</ng-template>

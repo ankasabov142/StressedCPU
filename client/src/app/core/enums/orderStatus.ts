@@ -6,3 +6,11 @@ export const ORDER_STATUS = {
     CANCELLED: { code: 4, name: 'Cancelled' },
     RETURNED: { code: 5, name: 'Returned' }
 }
+
+export const ORDER_ACTION = {
+    [ORDER_STATUS.CONFIRMED.code]: 'Confirm order',
+    [ORDER_STATUS.SENT.code]: 'Send order',
+    [ORDER_STATUS.FULFILLED.code]: 'Fulfill order',
+    [ORDER_STATUS.CANCELLED.code]: 'Cancel order',
+    [ORDER_STATUS.RETURNED.code]: 'Return order'
+}

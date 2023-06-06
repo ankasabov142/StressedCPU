@@ -1,1 +1,55 @@
-<p>discounts works!</p>
+<section class="container">
+    <h1 class="title">All Discounts</h1>
+    <article class="items-container" *ngIf="discounts else loader">
+        <app-add-btn (click)="openNewDiscount()" class="add-btn"></app-add-btn>
+
+        <article class="item" *ngFor="let item of discounts">
+            <!-- data -->
+            <article class="item-data">
+                <!-- id -->
+                <article class="item-data-item" matTooltip="Discount ID" matTooltipPosition="left">
+                    <mat-icon color="accent" class="item-data-icon">tag</mat-icon>
+                    <p>
+                        {{item._id}}
+                    </p>
+                </article>
+                <!-- code -->
+                <article class="item-data-item" matTooltip="Discount code" matTooltipPosition="left">
+                    <mat-icon class="item-data-icon orange">discount</mat-icon>
+                    <p>
+                        {{item.code}}
+                    </p>
+                </article>
+                <!-- percentage -->
+                <article class="item-data-item" matTooltip="Discount percentage off" matTooltipPosition="left">
+                    <mat-icon class="item-data-icon orange">percent</mat-icon>
+                    <p>
+                        {{item.percentage}}
+                    </p>
+                </article>
+            </article>
+
+            <!-- menu -->
+            <article>
+                <button mat-icon-button color="warn" [matMenuTriggerFor]="menu">
+                    <mat-icon class="action-icon">more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="openEditDiscount(item)">
+                        <mat-icon>edit</mat-icon>
+                        Edit
+                    </button>
+                    <button mat-menu-item (click)="deleteDiscount(item._id)">
+                        <mat-icon>delete</mat-icon>
+                        Delete
+                    </button>
+                </mat-menu>
+            </article>
+        </article>
+    </article>
+    <h1 *ngIf="discounts?.length === 0" class="empty-query-msg">No discounts found</h1>
+</section>
+
+<ng-template #loader>
+    <mat-spinner color="warn"></mat-spinner>
+</ng-template>

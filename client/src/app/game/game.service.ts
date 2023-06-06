@@ -26,4 +26,11 @@ export class GameService {
       return [];
     }));
   }
+
+  getGameById(gameId: string): Observable<IGame> {
+    return this.http.get<IGame>(`${URL}/${gameId}`).pipe(catchError((err) => {
+      this.handleError(err);
+      return [];
+    }));
+  }
 }

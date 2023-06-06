@@ -4,9 +4,8 @@
 
         <app-order *ngFor="let order of orders" [order]="order"></app-order>
 
-
         <article *ngIf="orders.length === 0" class="order empty-msg">
-            <h1>You have not created any orders yet</h1>
+            <h1>No orders found</h1>
         </article>
     </article>
 </section>

@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, catchError, pipe, Subscription } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 import { LocalStorage } from '../injection-tokens';
@@ -20,7 +21,7 @@ const CART_URL = `${env.API_URL}/cart`;
 export class UserService {
   user: IUser | undefined;
   accessToken: string | null = this.localStorage.getItem('accessToken') || null;
-
+  isLoading: boolean = true;
   cart: ICart | undefined;
 
   get isAuth(): boolean { return Boolean(this.user); };
@@ -34,7 +35,8 @@ export class UserService {
 
   constructor(
     @Inject(LocalStorage) private localStorage: Window['localStorage'],
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
     this.accessToken = this.localStorage.getItem('accessToken');
   }
@@ -52,16 +54,18 @@ export class UserService {
 
   private handleError(err: HttpErrorResponse): void {
     console.error(err);
+    this.isLoading = false;
     alert(err.error.message || err.message);
   }
 
-  private loadUserData(){
+  private loadUserData() {
     this.getCart();
   }
   // Auth
 
   persistedLogin(): Subscription | null {
     if (!this.accessToken) {
+      this.isLoading = false;
       return null;
     }
 
@@ -72,18 +76,29 @@ export class UserService {
       error: (err) => {
         this.logout();
         this.handleError(err);
+      },
+      complete: () => {
+        this.isLoading = false;
       }
     })
   }
 
   login(body: { email: string, password: string }): void {
+    this.isLoading = true;
+
     this.http.post<IUser>(`${USER_URL}/login`, body, this.authHeaderOptions).subscribe({
       next: (user: IUser) => {
         this.handleUserAuth(user);
+        this.router.navigateByUrl('/');
       },
       error: (err) => {
         this.logout();
         this.handleError(err);
+        console.log('error');
+      },
+      complete: () => {
+        console.log('complete')
+        this.isLoading = false;
       }
     })
   }
@@ -96,13 +111,19 @@ export class UserService {
     password: string,
     repassword: string,
   }): void {
+    this.isLoading = true;
+
     this.http.post<IUser>(`${USER_URL}/register`, body, this.authHeaderOptions).subscribe({
       next: (user: IUser) => {
         this.handleUserAuth(user);
+        this.router.navigateByUrl('/');
       },
       error: (err) => {
         this.logout();
         this.handleError(err);
+      },
+      complete: () => {
+        this.isLoading = false;
       }
     })
   }
@@ -184,7 +205,6 @@ export class UserService {
     this.http.get<ICart>(CART_URL, this.authHeaderOptions).subscribe({
       next: (value: ICart) => {
         this.cart = value;
-        console.log(value);
       },
       error: (err) => {
         this.handleError(err);

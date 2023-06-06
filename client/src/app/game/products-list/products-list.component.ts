@@ -15,10 +15,12 @@ export class ProductsListComponent {
     return this._games;
   }
 
+  get isAdmin(): boolean{
+    return this.userService.isAdmin;
+  }
+
   isProductInCart(gameId: string): boolean {
-    const res = this.userService.isProductInCart(gameId);
-    console.log(res)
-    return res
+    return this.userService.isProductInCart(gameId);
   }
 
   getGenres(game: IGame): string {
@@ -31,7 +33,6 @@ export class ProductsListComponent {
     this.gameService.getAllGames().subscribe({
       next: (value: IGame[]) => {
         this._games = value;
-        console.log(value)
       }
     })
   }

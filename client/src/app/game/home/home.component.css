@@ -1,0 +1,13 @@
+.heading {
+    text-align: center;
+    padding: 2rem;
+    border-bottom: 1px solid var(--color-special-orange-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title{
+    text-shadow: 0px 0px -2px var(--color-secondary-orange);
+    margin-right: 1rem;
+}

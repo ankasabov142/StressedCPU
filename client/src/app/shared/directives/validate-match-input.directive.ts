@@ -32,8 +32,6 @@ export class ValidateMatchInputDirective implements Validator {
       control.updateValueAndValidity({ onlySelf: true });
     }) || null
 
-    console.log(control.value, this.matchInput.value);
-
     return control.value?.trim() === this.matchInput.value?.trim()
       ? null
       : { matchinput: { matchInput: this.matchInput.name } };

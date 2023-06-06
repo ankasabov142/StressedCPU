@@ -1,5 +1,9 @@
 <section class="container">
     <article class="game" *ngFor="let game of games">
+        <article *ngIf="isAdmin" class="id-container">
+            <mat-icon color="accent">tag</mat-icon>
+            <p>{{game._id}}</p>
+        </article>
         <img [src]="game.displayImage" alt="Could not load image">
         <article class="icons">
             <article class="stars">

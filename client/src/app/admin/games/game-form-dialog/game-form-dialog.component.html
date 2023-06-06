@@ -1,0 +1,73 @@
+<form class="form" #form="ngForm" (ngSubmit)="submitHandler(form)">
+    <h1 mat-dialog-title>{{title}}</h1>
+    <article class="inputs" mat-dialog-content>
+        <mat-form-field appearance="fill" color="warn">
+            <mat-label>Name</mat-label>
+            <input [ngModel]="gameData.name" #name="ngModel" name="name" required [maxlength]="250" matInput
+                [placeholder]="gameData.name || 'God of War: Ragnarok (PS5)'">
+            <mat-icon matSuffix color="accent">videogame_asset</mat-icon>
+            <mat-error *ngIf="name.invalid && name.dirty && name.touched">{{getNameError(name)}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" color="warn">
+            <mat-label>Description</mat-label>
+            <textarea [ngModel]="gameData.description" #description="ngModel" name="description" required
+                [maxlength]="2500" matInput [placeholder]="gameData.description || 'As for the gameplay...'"></textarea>
+            <mat-error
+                *ngIf="description.invalid && description.dirty && description.touched">{{getDescriptionError(description)}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" color="warn">
+            <mat-label>Price</mat-label>
+            <input [ngModel]="gameData.price" #price="ngModel" name="price" type="number" required [min]="0"
+                [max]="10000" matInput [placeholder]="gameData.price.toString()|| '&euro;99.99'">
+            <mat-icon matSuffix color="accent">payments</mat-icon>
+            <mat-error *ngIf="price.invalid && price.dirty && price.touched">{{getPriceError(price)}}
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" color="warn">
+            <mat-label>Display image</mat-label>
+            <input [ngModel]="gameData.displayImage" #displayImage="ngModel" name="displayImage" required isURL matInput
+                [placeholder]="gameData.displayImage || 'https://image.com/God-of-War-PS5.png'">
+            <mat-icon matSuffix color="accent">image</mat-icon>
+            <mat-error
+                *ngIf="displayImage.invalid && displayImage.dirty && displayImage.touched">{{getDisplayImageError(displayImage)}}
+            </mat-error>
+        </mat-form-field>
+
+        <app-chips-input label="Media" placeholder="New Media URL..." suffixIcon="collections"
+            (itemEmitter)="media = $event" [items]="gameData.media"></app-chips-input>
+
+        <app-chips-autocomplete-input label="Categories" placeholder="New Category..." suffixIcon="category"
+            [allItems]="allCategories" (itemEmitter)="categories = $event"
+            [items]="gameData.categories"></app-chips-autocomplete-input>
+
+        <app-chips-autocomplete-input label="Genres" placeholder="New Genre..." suffixIcon="gamepad"
+            [allItems]="allGenres" (itemEmitter)="genres = $event"
+            [items]="gameData.genres"></app-chips-autocomplete-input>
+
+        <app-chips-autocomplete-input label="Tags" placeholder="New Tag..." suffixIcon="tag" [allItems]="allTags"
+            (itemEmitter)="tags = $event" [items]="gameData.tags"></app-chips-autocomplete-input>
+
+        <app-chips-autocomplete-input label="Discounts" placeholder="New Discount..." suffixIcon="discount"
+            [allItems]="allDiscounts" (itemEmitter)="discounts = $event"
+            [items]="gameData.discounts"></app-chips-autocomplete-input>
+
+        <mat-form-field appearance="fill" color="warn">
+            <mat-label>Quantity in stock</mat-label>
+            <input [ngModel]="gameData.quantityInStock" #quantityInStock="ngModel" name="quantityInStock" type="number"
+                required [min]="0" matInput [placeholder]="gameData.quantityInStock.toString() || 'x10'">
+            <mat-icon matSuffix class="icon-123" color="accent">123</mat-icon>
+            <mat-error
+                *ngIf="quantityInStock.invalid && quantityInStock.dirty && quantityInStock.touched">{{getQuantityInStockError(quantityInStock)}}
+            </mat-error>
+        </mat-form-field>
+    </article>
+    <article class="buttons" mat-dialog-actions>
+        <button type="button" mat-button color="warn" (click)="close()">Cancel</button>
+        <button type="submit" mat-stroked-button color="warn" [disabled]="form.invalid">Submit</button>
+    </article>
+</form>

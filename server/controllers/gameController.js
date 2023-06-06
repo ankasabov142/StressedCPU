@@ -12,6 +12,14 @@ router.get('/', async (req, res, next) => {
     }
 });
 
+router.get('/search', async (req, res, next) => {
+    try {
+        res.json(await service.getAllGames());
+    } catch (err) {
+        next(err);
+    }
+});
+
 router.get('/:id', async (req, res, next) => {
     try {
         res.json(await service.getGameById(req.params.id));

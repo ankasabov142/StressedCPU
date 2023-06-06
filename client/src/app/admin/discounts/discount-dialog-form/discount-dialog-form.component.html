@@ -1,0 +1,24 @@
+<app-dialog-form [title]="title" [submit]="submit" [formGroup]="form">
+    <mat-form-field appearance="fill" color="warn">
+        <mat-label>Code</mat-label>
+        <input name="code" formControlName="code" matInput placeholder="XMAS-10">
+        <mat-icon matSuffix color="accent">notes</mat-icon>
+        <mat-error
+            *ngIf="formControl.code.invalid && formControl.code.dirty && formControl.code.touched">{{getCodeError(formControl.code.errors)}}
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" color="warn">
+        <mat-label>Discount %</mat-label>
+        <input name="percentage" formControlName="percentage" matInput type="number" placeholder="15%">
+        <mat-icon matSuffix color="accent">discount</mat-icon>
+        <mat-error
+            *ngIf="formControl.percentage.invalid && formControl.percentage.dirty && formControl.percentage.touched">{{getPercentageError(formControl.percentage.errors)}}
+        </mat-error>
+    </mat-form-field>
+
+    <mat-radio-group color="warn" formControlName="isPromoCode">
+        <mat-radio-button class="first-option" [value]="false">Standard promotion</mat-radio-button>
+        <mat-radio-button [value]="true">Checkout promo code</mat-radio-button>
+    </mat-radio-group>
+</app-dialog-form>

@@ -1,1 +1,51 @@
-<p>categories works!</p>
+<section class="container">
+    <h1 class="title">All categories</h1>
+    <article class="items-container" *ngIf="categories; else loader">
+        <app-add-btn (click)="openNewCategory()" class="add-btn"></app-add-btn>
+
+        <article class="item" *ngFor="let item of categories">
+            <!-- data -->
+            <article class="item-data">
+                <!-- id -->
+                <article class="item-data-item" matTooltip="Category ID" matTooltipPosition="left">
+                    <mat-icon color="accent" class="item-data-icon">tag</mat-icon>
+                    <p>
+                        {{item._id}}
+                    </p>
+                </article>
+                <!-- name -->
+                <article class="item-data-item" matTooltip="Category name" matTooltipPosition="left">
+                    <mat-icon class="item-data-icon orange">category</mat-icon>
+                    <p>
+                        {{item.name}}
+                    </p>
+                </article>
+            </article>
+
+            <!-- menu -->
+            <article>
+                <button mat-icon-button color="warn" [matMenuTriggerFor]="menu">
+                    <mat-icon class="action-icon">more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="openEditCategory(item)">
+                        <mat-icon>edit</mat-icon>
+                        Edit
+                    </button>
+                    <button mat-menu-item (click)="deleteCategory(item._id)">
+                        <mat-icon>delete</mat-icon>
+                        Delete
+                    </button>
+                </mat-menu>
+            </article>
+        </article>
+    </article>
+
+    <article *ngIf="categories?.length === 0" class="empty-msg">
+        <h1>No categories found</h1>
+    </article>
+</section>
+
+<ng-template #loader>
+    <mat-spinner color="warn"></mat-spinner>
+</ng-template>

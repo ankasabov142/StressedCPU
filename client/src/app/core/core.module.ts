@@ -11,17 +11,21 @@ import { MatBadgeModule } from '@angular/material/badge'
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { LocalStorage } from '../injection-tokens';
+import { SharedModule } from '../shared/shared.module';
+import { LogoComponent } from './logo/logo.component';
 
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LogoComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
+    SharedModule,
     // @angular/material
     MatInputModule,
     MatIconModule,
@@ -31,7 +35,8 @@ import { LocalStorage } from '../injection-tokens';
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    LogoComponent
   ],
   providers: [
     {

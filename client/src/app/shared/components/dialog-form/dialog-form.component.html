@@ -1,0 +1,10 @@
+<form class="form" (ngSubmit)="submit(formGroup)">
+    <h1 mat-dialog-title>{{title}}</h1>
+    <article class="inputs" mat-dialog-content>
+        <ng-content></ng-content>
+    </article>
+    <article class="buttons" mat-dialog-actions>
+        <button type="button" mat-button color="warn" (click)="cancel()">{{cancelText}}</button>
+        <button type="submit" mat-stroked-button color="warn" [disabled]="formGroup.invalid">{{submitText}}</button>
+    </article>
+</form>

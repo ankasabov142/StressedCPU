@@ -1,0 +1,12 @@
+.add-btn {
+    height: 100%;
+    width: 100%;
+}
+
+.icon {
+    position: relative;
+    color: var(--color-secondary-orange);
+    font-size: 5rem;
+    height: unset;
+    width: unset;
+}

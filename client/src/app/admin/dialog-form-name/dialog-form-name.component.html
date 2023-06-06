@@ -1,0 +1,10 @@
+<app-dialog-form [title]="title" [submit]="submit" [formGroup]="form">
+    <mat-form-field appearance="fill" color="warn">
+        <mat-label>Name</mat-label>
+        <input name="name" formControlName="name" matInput>
+        <mat-icon *ngIf="suffixIcon" matSuffix color="accent">{{suffixIcon}}</mat-icon>
+        <mat-error
+            *ngIf="formControl.name.invalid && formControl.name.dirty && formControl.name.touched">{{getNameError(formControl.name.errors)}}
+        </mat-error>
+    </mat-form-field>
+</app-dialog-form>

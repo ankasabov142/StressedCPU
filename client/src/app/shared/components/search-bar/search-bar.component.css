@@ -1,0 +1,10 @@
+.search-bar {
+    margin-bottom: -1.25rem;
+    width: 500px;
+}
+
+@media all and (max-width:1000px) {
+    .search-bar {
+        width: 100% !important;
+    }
+}

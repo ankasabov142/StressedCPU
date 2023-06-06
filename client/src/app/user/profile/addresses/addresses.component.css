@@ -70,11 +70,3 @@ h2.phone-number {
     overflow: hidden;
     white-space: nowrap;
 }
-
-.add-btn {
-    height: 100%;
-}
-
-.add-btn .icon {
-    font-size: 5rem;
-}

@@ -15,6 +15,12 @@
     --color-text-main: rgb(246, 246, 246);
     --color-text-title: rgb(255, 255, 255);
     --color-text-special: rgb(194, 61, 0);
+    --color-darkgreen: rgb(10, 131, 10);
+    --color-green: greenyellow;
+    --color-lightred: rgb(187, 93, 93);
+    --color-red: rgba(255, 46, 46, 0.713);
+    --color-yellow: goldenrod;
+    
 }
 
 html {
@@ -107,17 +113,21 @@ input:focus {
     font-size: 16px !important;
 }
 
-mat-form-field {
+/* mat-form-field {
     font-size: 1rem !important;
-}
+} */
 
-mat-form-field .mat-mdc-floating-label {
+mat-form-field:not(.mat-form-field-appearance-fill) .mat-mdc-floating-label {
     top: 50% !important;
 }
 
-.mat-mdc-form-field-infix {
+.mat-form-field-appearance-outline .mat-mdc-form-field-infix {
     min-height: unset !important;
     padding-block: 0.8rem !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent;
 }
 
 /*Scrollbar*/
