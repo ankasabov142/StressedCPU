@@ -8,8 +8,8 @@ MEAN | online shop for video games
 
 |  | client | server |
 | ----------- | ----------- | ----------- |
-| Deployed on | Render | Firebase |
-| Link| https://gamestore-api-4r20.onrender.com | https://videogamewebstore.web.app |
+| Deployed on | Firebase | Render |
+| Link| https://videogamewebstore.web.app | https://gamestore-api-4r20.onrender.com |
 
 ## Completed functionalities:
 ### Guest user
