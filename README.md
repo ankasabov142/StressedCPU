@@ -3,7 +3,7 @@ MEAN | online shop for video games
 
 ### Technology stack:
 | Front-end | Angular | Typescript | Angular Material | rxjs |  |  | 
-| ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | ----------- | 
+| ----------- | ---------- | ----------- | ----------- | ----------- | ----------- | ----------- | 
 | Back-end | Node.js | Express.js | MongoDB| Mongoose | JWT | bcrypt |
 
 |  | client | server |
